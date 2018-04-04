@@ -190,17 +190,19 @@
         <hr>
       </div>
       <div class="col-md-8 col-md-offset-2">
-        <form name="sentMessage" id="contactForm" novalidate>
+        <form name="submit-to-google-sheet" id="contactForm" novalidate>
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <input type="text" id="name" class="form-control" placeholder="Name" required="required">
+                <label class="hidden">Name</label>
+                <input type="text" id="name" name="fullName" class="form-control" placeholder="Name" required="required">
                 <p class="help-block text-danger"></p>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <input type="email" id="email" class="form-control" placeholder="Email" required="required">
+                <label class="hidden">Email</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="Email" required="required">
                 <p class="help-block text-danger"></p>
               </div>
             </div>
@@ -208,12 +210,14 @@
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
-                <input type="text" id="subject" class="form-control" placeholder="Subject" required="required">
+                <label class="hidden">Subject</label>
+                <input type="text" id="subject" name="subject" class="form-control" placeholder="Subject" required="required">
                 <p class="help-block text-danger"></p>
               </div>
             </div>
           </div>
           <div class="form-group">
+            <label class="hidden">Message</label>
             <textarea name="message" id="message" class="form-control" rows="4" placeholder="Message" required></textarea>
             <p class="help-block text-danger"></p>
           </div>
@@ -260,6 +264,29 @@
     $("#gauge6").gauge(35, {color: "#2AD4FF",unit: " %",type: "halfcircle"});
   });
   </script>
+  
+  <script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbyrLXL3lAD2_z_LA3br6BN83Dohrwys1hL1ve7mgoDfO87oRA/exec'
+  const form = document.forms['submit-to-google-sheet']
+
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, 
+      {
+        method: 'POST', 
+        body: new FormData(form)
+      })
+    
+      .then
+      (
+        //
+      )
+      .catch
+      (
+        //
+      )
+  })
+</script>
   <!-- //gauge-meter -->
   <script type="text/javascript" src="js/SmoothScroll.js"></script> 
   <script type="text/javascript" src="js/nivo-lightbox.js"></script> 
